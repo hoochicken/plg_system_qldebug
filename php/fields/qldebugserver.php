@@ -35,7 +35,7 @@ class JFormFieldQldebugserver extends JFormField
         if (!is_array($server)) $server = array();
         $html = array();
         $html[] = '<select name="jform[params][server][]" id="jform_params_server" multiple="multiple">';
-        while (list($k, $v) = each($_SERVER)) {
+        foreach ($_SERVER as $k => $v)) {
             $html[] = '<option value="' . $k . '"';
             if (in_array($k, $server)) $html[] = 'selected="selected" ';
             $html[] = '>';

@@ -110,7 +110,7 @@ class plgSystemQldebug extends JPlugin
                 if
                 (
                     (1 != $this->params->get($v) && 'server' != $v)
-                    or
+                    ||
                     ('server' == $v && 0 >= count($this->params->get($v)))
                 ) {
                     unset($this->arrQldebug[$k]);
