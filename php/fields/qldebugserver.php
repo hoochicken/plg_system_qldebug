@@ -1,9 +1,9 @@
 <?php
 /**
- * @package		plg_system_qldebug
- * @copyright	Copyright (C) 2017 ql.de All rights reserved.
- * @author 		Mareike Riegel mareike.riegel@ql.de
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package        plg_system_qldebug
+ * @copyright    Copyright (C) 2017 ql.de All rights reserved.
+ * @author        Mareike Riegel mareike.riegel@ql.de
+ * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -29,39 +29,40 @@ class JFormFieldQldebugserver extends JFormField
      */
     protected function getInput()
     {
-        if(!isset($_SERVER)) return JText::_('PLG_SYSTEM_QLDEBUG_MSG_GLOBALNOSERVERVARIABLEFOUND');
-        $params=$this->getParamsOfExtension();
-        $server=$params->get('server');
-        if(!is_array($server))$server=array();
-        $html=array();
-        $html[]='<select name="jform[params][server][]" id="jform_params_server" multiple="multiple">';
-        while(list($k,$v)=each($_SERVER))
-        {
-            $html[]='<option value="'.$k.'"';
-            if(in_array($k,$server)) $html[]='selected="selected" ';
-            $html[]='>';
-            $html[]=$k;
-            $html[]='</option>';
+        if (!isset($_SERVER)) return JText::_('PLG_SYSTEM_QLDEBUG_MSG_GLOBALNOSERVERVARIABLEFOUND');
+        $params = $this->getParamsOfExtension();
+        $server = $params->get('server');
+        if (!is_array($server)) $server = array();
+        $html = array();
+        $html[] = '<select name="jform[params][server][]" id="jform_params_server" multiple="multiple">';
+        while (list($k, $v) = each($_SERVER)) {
+            $html[] = '<option value="' . $k . '"';
+            if (in_array($k, $server)) $html[] = 'selected="selected" ';
+            $html[] = '>';
+            $html[] = $k;
+            $html[] = '</option>';
         }
-        $html[]='</select>';
-        return implode("\n",$html);
+        $html[] = '</select>';
+        return implode("\n", $html);
     }
+
     protected function getParamsOfExtension()
     {
-        if(!isset($_GET['extension_id']) OR 0==$_GET['extension_id']) return array();
-        $extensionId=$_GET['extension_id'];
-        return $this->askDb('params','#__extensions','`extension_id`=\''.$extensionId.'\'');
+        if (!isset($_GET['extension_id']) or 0 == $_GET['extension_id']) return array();
+        $extensionId = $_GET['extension_id'];
+        return $this->askDb('params', '#__extensions', '`extension_id`=\'' . $extensionId . '\'');
     }
-    protected function askDb($select,$from,$where,$addition='')
+
+    protected function askDb($select, $from, $where, $addition = '')
     {
-        $db=JFactory::getDbo();
-        $query=$db->getQuery(true);
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
         $query->select($select);
         $query->from($from);
         $query->where($where);
         $db->setQuery($query);
-        $result=$db->loadObject();
-        $params=new JRegistry();
+        $result = $db->loadObject();
+        $params = new JRegistry();
         $params->loadString($result->params);
         if ($result && isset($result->params)) return $params;
         return false;
