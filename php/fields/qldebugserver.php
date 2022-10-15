@@ -27,7 +27,7 @@ class JFormFieldQldebugserver extends JFormField
      * @return array The field option objects.
      * @since 1.6
      */
-    protected function getInput()
+    protected function getInput(): string
     {
         if (!isset($_SERVER)) return JText::_('PLG_SYSTEM_QLDEBUG_MSG_GLOBALNOSERVERVARIABLEFOUND');
         $params = $this->getParamsOfExtension();
@@ -35,7 +35,7 @@ class JFormFieldQldebugserver extends JFormField
         if (!is_array($server)) $server = array();
         $html = array();
         $html[] = '<select name="jform[params][server][]" id="jform_params_server" multiple="multiple">';
-        foreach ($_SERVER as $k => $v)) {
+        foreach ($_SERVER as $k => $v) {
             $html[] = '<option value="' . $k . '"';
             if (in_array($k, $server)) $html[] = 'selected="selected" ';
             $html[] = '>';
