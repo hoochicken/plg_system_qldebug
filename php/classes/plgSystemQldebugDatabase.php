@@ -196,7 +196,7 @@ class plgSystemQldebugDatabase
      * @param array $stack
      * @return string
      */
-    public static function remove_recursion(&$object, &$stack = array())
+    public static function remove_recursion(&$object, &$stack = [])
     {
         if ((is_object($object) || is_array($object)) && $object) {
             if (!in_array($object, $stack, true)) {

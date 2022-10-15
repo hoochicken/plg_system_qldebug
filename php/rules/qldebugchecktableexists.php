@@ -48,7 +48,7 @@ class JFormRuleQldebugchecktableexists extends JFormRule
         $this->obj_helper = new plgSystemQldebugHelper(new stdClass());
         $tableName = $this->obj_helper->tableStorage;
         try {
-            $msgError = array();
+            $msgError = [];
             if (1 != $this->tableExists($this->getDatabaseName(), $this->getTableName($tableName))) throw new Exception(sprintf(JText::_('PLG_SYSTEM_QLDEBUG_MSG_TABLENONEXISTENT'), $tableName, $tableName));
         } catch (Exception $e) {
             JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
@@ -153,7 +153,7 @@ class JFormRuleQldebugchecktableexists extends JFormRule
     private function objectToArrayOrTheOtherWay($input)
     {
         if (is_object($input)) {
-            $output = array();
+            $output = [];
             foreach ($input as $k => $v) $output[$k] = $v;
         }
         if (is_array($input)) {

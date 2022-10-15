@@ -75,7 +75,7 @@ class plgSystemQldebugHelper
      */
     public function get_server()
     {
-        $server = array();
+        $server = [];
         $servParam = $this->params->get('server');
         if (is_array($servParam) && 0 < count($servParam)) foreach ($servParam as $k => $v) $server[$v] = $_SERVER[$v];
         return $server;
@@ -147,7 +147,7 @@ class plgSystemQldebugHelper
         $table = $this->params->get('tablename');
         if (true != $this->checkIfTableExists($table)) return false;
         /*generate array with table info (columns and data)*/
-        $arr_table_columns = array();
+        $arr_table_columns = [];
         if (1 == $this->params->get('tablecolumns')) $arr_table_columns['columns'] = $this->obj_db->getDatabaseFields($this->database, $table);
         if (1 == $this->params->get('tabledata')) $arr_table_columns['data'] = $this->obj_db->getTableData($table, '*', trim($this->params->get('tablequery')));
         return $arr_table_columns;

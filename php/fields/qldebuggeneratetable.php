@@ -54,7 +54,7 @@ class JFormFieldQldebuggeneratetable extends JFormField
 
     protected function getUrl()
     {
-        $get = array();
+        $get = [];
         foreach ($_GET as $k => $v) if ('qldebuggeneratetable' != $k && 'qldebugdroptable' != $k) $get[] = $k . '=' . $v;
         return JUri::base() . '?' . implode('&', $get);
     }

@@ -32,8 +32,8 @@ class JFormFieldQldebugserver extends JFormField
         if (!isset($_SERVER)) return JText::_('PLG_SYSTEM_QLDEBUG_MSG_GLOBALNOSERVERVARIABLEFOUND');
         $params = $this->getParamsOfExtension();
         $server = $params->get('server');
-        if (!is_array($server)) $server = array();
-        $html = array();
+        if (!is_array($server)) $server = [];
+        $html = [];
         $html[] = '<select name="jform[params][server][]" id="jform_params_server" multiple="multiple">';
         foreach ($_SERVER as $k => $v) {
             $html[] = '<option value="' . $k . '"';
@@ -48,7 +48,7 @@ class JFormFieldQldebugserver extends JFormField
 
     protected function getParamsOfExtension()
     {
-        if (!isset($_GET['extension_id']) || 0 == $_GET['extension_id']) return array();
+        if (!isset($_GET['extension_id']) || 0 == $_GET['extension_id']) return [];
         $extensionId = $_GET['extension_id'];
         return $this->askDb('params', '#__extensions', '`extension_id`=\'' . $extensionId . '\'');
     }
