@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.7" group="system" method="upgrade">
+    <name>PLG_SYSTEM_QLDEBUG</name>
+    <author>Mareike Riegel</author>
+    <creationDate>2017</creationDate>
+    <copyright>Copyright (C) 2017 ql.de All rights reserved.</copyright>
+    <authorEmail>mareike.riegel@ql.de</authorEmail>
+    <authorUrl>http://ql.de/</authorUrl>
+    <version>2.0.3</version>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <description>PLG_SYSTEM_QLDEBUG_DESCRIPTION</description>
+	<updateservers>
+        <server type="extension" priority="1" name="qldebug - Updates"><![CDATA[https://www.blackforest-software.com/_scripts/updates/plg_system_qldebug.xml]]></server>
+    </updateservers>
+    <files>
+        <filename plugin="qldebug">qldebug.php</filename>
+        <filename plugin="qldebug">index.html</filename>
+        <folder plugin="qldebug">css</folder>
+        <folder plugin="qldebug">tmpl</folder>
+        <folder plugin="qldebug">javascript</folder>
+        <folder plugin="qldebug">language</folder>
+        <folder plugin="qldebug">php</folder>
+        <folder plugin="qldebug">sql</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/en-GB.plg_system_qldebug.ini</language>
+        <language tag="en-GB">language/en-GB/en-GB.plg_system_qldebug.sys.ini</language>
+    </languages>
+	<config>
+		<fields name="params"
+                addrulepath="/plugins/system/qldebug/php/rules"
+                addfieldpath="/plugins/system/qldebug/php/fields">
+            <fieldset name="basic">
+                <field
+                        name="stateAccess"
+                        type="list"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_STATEACCESS_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_STATEACCESS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">PLG_SYSTEM_QLDEBUG_STATEACCESS_LOGGEDUSERGROUP</option>
+                    <option value="2">PLG_SYSTEM_QLDEBUG_STATEACCESS_LOGGEDIN</option>
+                    <option value="3">PLG_SYSTEM_QLDEBUG_STATEACCESS_NOTLOGGEDIN</option>
+                    <option value="4">PLG_SYSTEM_QLDEBUG_STATEACCESS_ALWAYS</option>
+                    <option value="5">PLG_SYSTEM_QLDEBUG_STATEACCESS_IP</option>
+                </field>
+                <field name="usergroup"
+                       type="usergroup"
+                       label="PLG_SYSTEM_QLDEBUG_USERGROUP_LABEL"
+                       description="PLG_SYSTEM_QLDEBUG_USERGROUP_DESC"
+                       default="8">
+                </field>
+                <field name="ip"
+                       type="text"
+                       label="PLG_SYSTEM_QLDEBUG_IP_LABEL"
+                       description="PLG_SYSTEM_QLDEBUG_IP_DESC"
+                       default="127.0.0.1">
+                </field>
+                <field
+                        name="stateSite"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_STATESITE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_STATESITE_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+                <field
+                        name="stateAdmin"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_STATEADMIN_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_STATEADMIN_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+            </fieldset>
+            <fieldset name="output">
+                <field
+                        name="output"
+                        type="radio"
+                        class="btn-group"
+                        default="1"
+                        label="PLG_SYSTEM_QLDEBUG_OUTPUT_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_OUTPUT_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                    <option value="2">PLG_SYSTEM_QLDEBUG_OUTPUT_BARE</option>
+                </field>
+                <field
+                        name="message"
+                        type="editor"
+                        filter="safehtml"
+                        height="50px"
+                        rows="10"
+                        label="PLG_SYSTEM_QLDEBUG_MESSAGE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_MESSAGE_DESC">
+                </field>
+                <field
+                        name="pre"
+                        type="radio"
+                        default="1"
+                        class="btn-group"
+                        label="PLG_SYSTEM_QLDEBUG_PRE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_PRE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="preBreakWord"
+                        type="list"
+                        default="1"
+                        label="PLG_SYSTEM_QLDEBUG_PREBREAKWORD_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_PREBREAKWORD_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="quicklinks"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_QUICKLINKS_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_QUICKLINKS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="exit"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_EXIT_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_EXIT_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="css"
+                        type="textarea"
+                        default="position:absolute;&#13;&#10;top:0;&#13;&#10;right:0;&#13;&#10;z-index:1000;&#13;&#10;height:500px;&#13;&#10;overflow:auto;&#13;&#10;width:auto;&#13;&#10;max-width:400px;&#13;&#10;word-wrap:break-word;&#13;&#10;background:rgba(255,255,255,0.7);&#13;&#10;float:left;&#13;&#10;padding:5px 5px 5px;border:3px solid rgb(200,200,200);&#13;&#10;border-bottom-left-radius:10px;"
+                        label="PLG_SYSTEM_QLDEBUG_CSS_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_CSS_DESC"
+                        cols="100"
+                        rows="10"
+                        >
+                </field>
+            </fieldset>
+            <fieldset name="tech">
+                <field
+                        name="browsersize"
+                        type="radio"
+                        default="0"
+                        class="btn-group"
+                        label="PLG_SYSTEM_QLDEBUG_BROWSERSIZE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_BROWSERSIZE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="device"
+                        type="radio"
+                        default="0"
+                        class="btn-group"
+                        label="PLG_SYSTEM_QLDEBUG_DEVICE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_DEVICE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            <fieldset name="database">
+                <field
+                        name="databasestorage"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        validate="qldebugchecktableexists"
+                        label="PLG_SYSTEM_QLDEBUG_DATABASESTORAGE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_DATABASESTORAGE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="databasegeneratetable"
+                        type="qldebuggeneratetable"
+                        label="PLG_SYSTEM_QLDEBUG_DATABASEGENERATETABLE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_DATABASEGENERATETABLE_DESC">
+                </field>
+            </fieldset>
+            <fieldset name="globals">
+                <field
+                        name="post"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_POST_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_POST_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="get"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_GET_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_GET_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="server"
+                        type="qldebugserver"
+                        class="btn-group"
+                        label="PLG_SYSTEM_QLDEBUG_SERVER_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_SERVER_DESC">
+                </field>
+                <field
+                        name="globals"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_GLOBALS_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_GLOBALS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="files"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_FILES_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_FILES_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="request"
+                        type="radio"
+						class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_REQUEST_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_REQUEST_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="session"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_SESSION_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_SESSION_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="cookie"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_COOKIE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_COOKIE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            <fieldset name="joomla">
+                <field
+                        name="jinput"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_JINPUT_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_JINPUT_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="juser"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_JUSER_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_JUSER_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="japplication"
+                        type="radio"
+                        class="btn-group"
+						default="0"
+                        label="PLG_SYSTEM_QLDEBUG_JAPPLICATION_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_JAPPLICATION_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+            <fieldset name="table">
+                <field
+                        name="table"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_TABLE_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_TABLE_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="tablename"
+                        type="text"
+                        default=""
+                        label="PLG_SYSTEM_QLDEBUG_TABLENAME_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_TABLENAME_DESC">
+                </field>
+                <field
+                        name="tablecolumns"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_TABLECOLUMNS_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_TABLECOLUMNS_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="tabledata"
+                        type="list"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_TABLEDATA_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_TABLEDATA_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="tablequery"
+                        type="textarea"
+                        label="PLG_SYSTEM_QLDEBUG_TABLEQUERY_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_TABLEQUERY_DESC"
+                        validate="qldebugdbprotection"
+                        cols="100"
+                        rows="10"
+                        >
+                </field>
+            </fieldset>
+            <fieldset name="files">
+                <field
+                        name="includedfiles"
+                        type="radio"
+                        class="btn-group"
+                        default="0"
+                        label="PLG_SYSTEM_QLDEBUG_INCLUDEDFILES_LABEL"
+                        description="PLG_SYSTEM_QLDEBUG_INCLUDEDFILES_DESC">
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+		</fields>
+	</config>
+</extension>

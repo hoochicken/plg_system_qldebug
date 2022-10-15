@@ -1,0 +1,13 @@
+/*
+@package		plg_system_qldebug
+@copyright	    Copyright (C) 2015 ql.de All rights reserved.
+@author 		Mareike Riegel mareike.riegel@ql.de
+@license		GNU General Public License version 2 or later; see LICENSE.txt
+*/
+.qldebugInner.qldebugPlugin h3 {clear:both;border-top:1px dotted rgb(200,200,200);border-bottom:1px dotted rgb(200,200,200);background:rgb(255,255,255);}
+.qldebugInner.qldebugPlugin pre {padding:0 5px;margin:0;}
+.qldebugInner.qldebugPlugin .qldebugInnerContainer {padding-top:20px;}
+.qldebugInner.qldebugPlugin .qldebugInnerContainer.bare {padding-top:0;}
+.qldebugInner.qldebugPlugin button {border:2px solid #ddd;border-radius:5px;color:#666;}
+.qldebugInner.qldebugPlugin .qldebugTotop {float:right;}
+.qldebugInner.qldebugPlugin .qldebugTotop {float:right;}
