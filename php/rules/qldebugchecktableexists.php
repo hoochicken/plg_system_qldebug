@@ -43,7 +43,7 @@ class JFormRuleQldebugchecktableexists extends JFormRule
      */
     public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
     {
-        if ('' == $value or 0 == $value) return true;
+        if ('' == $value || 0 == $value) return true;
         require_once JPATH_SITE . '/plugins/system/qldebug/php/classes/plgSystemQldebugHelper.php';
         $this->obj_helper = new plgSystemQldebugHelper(new stdClass());
         $tableName = $this->obj_helper->tableStorage;
@@ -86,7 +86,7 @@ class JFormRuleQldebugchecktableexists extends JFormRule
         $db->setQuery('SHOW TABLES FROM `' . $database . '`');
         $db->query();
         foreach ($db->loadObjectList() as $k => $v) foreach ($v as $v2) $arr[$k] = $v2;
-        if (is_array($arr) and in_array($table, $arr)) return true;
+        if (is_array($arr) && in_array($table, $arr)) return true;
         else return false;
     }
 

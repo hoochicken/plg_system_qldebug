@@ -41,7 +41,7 @@ class plgSystemQldebugHelper
         $query->where('`user_id`=\'' . $user_id . '\'');
         $db->setQuery($query);
         $user_data = $db->loadObject();
-        if (isset($user_data) and is_object($user_data) and isset($user_data->group_id) and $user_group_id == $user_data->group_id) return true;
+        if (isset($user_data) && is_object($user_data) && isset($user_data->group_id) && $user_group_id == $user_data->group_id) return true;
         else return false;
     }
 
@@ -77,7 +77,7 @@ class plgSystemQldebugHelper
     {
         $server = array();
         $servParam = $this->params->get('server');
-        if (is_array($servParam) and 0 < count($servParam)) foreach ($servParam as $k => $v) $server[$v] = $_SERVER[$v];
+        if (is_array($servParam) && 0 < count($servParam)) foreach ($servParam as $k => $v) $server[$v] = $_SERVER[$v];
         return $server;
         //return $_SERVER;
     }
@@ -242,7 +242,7 @@ class plgSystemQldebugHelper
         /*forbidden because of recursion, to be solved some day ... my prince will come*/
         $arrForbidden = array('japplication', 'Xjuser', 'session', 'globals');
         foreach ($data as $k => $v) {
-            if ((is_array($v) or is_object($v)) and in_array($k, $arrForbidden)) unset($data->$k);
+            if ((is_array($v) || is_object($v)) && in_array($k, $arrForbidden)) unset($data->$k);
         }
         return $data;
     }

@@ -24,7 +24,7 @@ class JFormFieldQldebugservermodule extends JFormFieldQldebugserver
 
     protected function getParamsOfExtension()
     {
-        if (!isset($_GET['id']) or 0 == $_GET['id']) return array();
+        if (!isset($_GET['id']) || 0 == $_GET['id']) return array();
         $extensionId = $_GET['id'];
         return $this->askDb('params', '#__modules', '`id`=\'' . $extensionId . '\'');
     }

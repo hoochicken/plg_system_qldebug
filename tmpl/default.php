@@ -32,4 +32,4 @@ defined('_JEXEC') or die;
             ?>
         </div>
     </div>
-<?php if (1 == $params->get('exit') and 'admin' != JFactory::getApplication()->isAdmin()) exit; ?>
+<?php if (1 == $params->get('exit') && 'admin' != JFactory::getApplication()->isAdmin()) exit; ?>

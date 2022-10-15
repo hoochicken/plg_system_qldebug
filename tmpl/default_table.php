@@ -20,7 +20,7 @@ defined('_JEXEC') or die;
     ?>
     <ul>
         <?php
-        if (!is_array($obj_plugin->$v) and !is_object($obj_plugin->$v)) : echo sprintf(JText::_('PLG_SYSTEM_QLDEBUG_TABLENOTFOUND'), (string)$params->get('tablename'));
+        if (!is_array($obj_plugin->$v) && !is_object($obj_plugin->$v)) : echo sprintf(JText::_('PLG_SYSTEM_QLDEBUG_TABLENOTFOUND'), (string)$params->get('tablename'));
         else :
 
             foreach ($obj_plugin->$v as $k2 => $v2) :

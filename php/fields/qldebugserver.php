@@ -48,7 +48,7 @@ class JFormFieldQldebugserver extends JFormField
 
     protected function getParamsOfExtension()
     {
-        if (!isset($_GET['extension_id']) or 0 == $_GET['extension_id']) return array();
+        if (!isset($_GET['extension_id']) || 0 == $_GET['extension_id']) return array();
         $extensionId = $_GET['extension_id'];
         return $this->askDb('params', '#__extensions', '`extension_id`=\'' . $extensionId . '\'');
     }

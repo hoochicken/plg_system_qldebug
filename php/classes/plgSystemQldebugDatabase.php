@@ -58,7 +58,7 @@ class plgSystemQldebugDatabase
         $db->setQuery($query);
         $db->query();
         foreach ($db->loadObjectList() as $k => $v) foreach ($v as $v2) $arr[$k] = $v2;
-        if (is_array($arr) and in_array($this->getTableName($table), $arr)) return true;
+        if (is_array($arr) && in_array($this->getTableName($table), $arr)) return true;
         else return false;
     }
 
@@ -134,7 +134,7 @@ class plgSystemQldebugDatabase
         if (0 == $this->tableExists($this->getDatabaseName(), $table)) return false;
         $obj_data = new stdClass();
         foreach ($data as $k => $v) {
-            if (is_array($v) or is_object($v)) $obj_data->$k = @json_encode($v);
+            if (is_array($v) || is_object($v)) $obj_data->$k = @json_encode($v);
             else $obj_data->$k = $v;
         }
         $db->insertObject($table, $obj_data);

@@ -40,12 +40,12 @@ class JFormFieldQldebuggeneratetable extends JFormField
     protected function generateTable()
     {
         $input = JFactory::getApplication()->input;
-        if (1 == $input->get('qldebuggeneratetable') and 1 != $this->obj_helper->checkIfTableExists($this->storage)) {
+        if (1 == $input->get('qldebuggeneratetable') && 1 != $this->obj_helper->checkIfTableExists($this->storage)) {
             $this->obj_helper->generateTable($this->storage);
             JFactory::getApplication()->enqueueMessage(sprintf(JText::_('PLG_SYSTEM_QLDEBUG_MSG_TABLEGENERATED'), $this->storage));
             return;
         }
-        if (1 == $input->get('qldebugdroptable') and 1 == $this->obj_helper->checkIfTableExists($this->storage)) {
+        if (1 == $input->get('qldebugdroptable') && 1 == $this->obj_helper->checkIfTableExists($this->storage)) {
             $this->obj_helper->dropTable($this->storage);
             JFactory::getApplication()->enqueueMessage(sprintf(JText::_('PLG_SYSTEM_QLDEBUG_MSG_TABLEDROPPED'), $this->storage));
             return;
@@ -55,7 +55,7 @@ class JFormFieldQldebuggeneratetable extends JFormField
     protected function getUrl()
     {
         $get = array();
-        foreach ($_GET as $k => $v) if ('qldebuggeneratetable' != $k and 'qldebugdroptable' != $k) $get[] = $k . '=' . $v;
+        foreach ($_GET as $k => $v) if ('qldebuggeneratetable' != $k && 'qldebugdroptable' != $k) $get[] = $k . '=' . $v;
         return JUri::base() . '?' . implode('&', $get);
     }
 
