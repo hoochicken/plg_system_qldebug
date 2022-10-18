@@ -13,6 +13,7 @@
         <server type="extension" priority="1" name="qldebug - Updates"><![CDATA[https://www.blackforest-software.com/_scripts/updates/plg_system_qldebug.xml]]></server>
     </updateservers>
     <files>
+        <filename plugin="qldebug">_jupdate</filename>
         <filename plugin="qldebug">qldebug.php</filename>
         <filename plugin="qldebug">index.html</filename>
         <folder plugin="qldebug">css</folder>
