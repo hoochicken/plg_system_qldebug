@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        plg_system_qldebug
- * @copyright    Copyright (C) 2017 ql.de All rights reserved.
+ * @copyright    Copyright (C) 2022 ql.de All rights reserved.
  * @author        Mareike Riegel mareike.riegel@ql.de
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -30,9 +30,9 @@ class plgSystemQldebug extends JPlugin
 
     /**
      * method to set module params as valid params for plugin
-     * @param $params
+     * @param Joomla\Registry\Registry $params
      */
-    public function forceParams($params)
+    public function forceParams(Joomla\Registry\Registry$params)
     {
         //echo '<pre>';print_r($this->params);
         $params->set('getHtml', 'module');
@@ -52,19 +52,19 @@ class plgSystemQldebug extends JPlugin
         $display = false;
         //echo '<pre>';print_R('ASDASD');die;
 
-        if (1 == $this->params->get('stateSite', 0) and 'site' == $area) $display = true;
-        if (1 == $this->params->get('stateAdmin', 0) and 'admin' == $area) $display = true;
+        if (1 == $this->params->get('stateSite', 0) && 'site' == $area) $display = true;
+        if (1 == $this->params->get('stateAdmin', 0) && 'admin' == $area) $display = true;
         if (1 == isset($_GET['qldebug'])) $display = true;
 
         /*when to be NOT displayed, then return without any further action*/
-        if (0 == $this->params->get('stateAccess', 0) or false == $display) return;
+        if (0 == $this->params->get('stateAccess', 0) || false == $display) return;
 
         /*initiate helper*/
         require_once JPATH_ROOT . '/plugins/system/qldebug/php/classes/plgSystemQldebugHelper.php';
         $obj_helper = new plgSystemQldebugHelper($this->params);
 
         $user = JFactory::getUser();
-        $arrayIntersect = @array_intersect($user->get('_authGroups'), $user->get('groups'));
+        $arrayIntersect = @array_intersect($user->getAuthorisedGroups(), $user->get('groups'));
 
         $user_id = plgSystemQldebugHelper::checkIfUserLoggedIn();
         switch ($this->params->get('stateAccess')) {
@@ -74,11 +74,11 @@ class plgSystemQldebug extends JPlugin
                 break;
             /*only logged-in Super Users*/
             case 1 :
-                if (false == $user_id) {
+                if (!$user_id) {
                     $stateDisplay = 0;
                     break;
                 }
-                if (0 < $user_id and true == plgSystemQldebugHelper::checkIfUserIsSuperuser($user_id, $this->params->get('usergroup', 8))) $stateDisplay = 1;
+                if (0 < $user_id && plgSystemQldebugHelper::checkIfUserIsSuperuser($user_id, $this->params->get('usergroup', 8))) $stateDisplay = 1;
                 break;
             /*only logged-in users*/
             case 2 :
@@ -86,14 +86,14 @@ class plgSystemQldebug extends JPlugin
                 break;
             /*only when user is not logged in*/
             case 3 :
-                if (false == $user_id) $stateDisplay = 0;
+                if (!$user_id) $stateDisplay = 0;
                 break;
             /*always*/
             case 4 :
                 $stateDisplay = 1;
                 break;
             case 5 :
-                if ($_SERVER['REMOTE_ADDR'] == $this->params->get('ip', '') and '' != $this->params->get('ip', '')) $stateDisplay = 1;
+                if ($_SERVER['REMOTE_ADDR'] == $this->params->get('ip', '') && '' != $this->params->get('ip', '')) $stateDisplay = 1;
                 //echo '<pre>';print_r($_SERVER);die;
                 break;
             default :
@@ -101,7 +101,7 @@ class plgSystemQldebug extends JPlugin
         }
 
         if (isset($_GET['qldebug'])) $stateDisplay = 1;
-        if (isset($stateDisplay) and 1 == $stateDisplay) {
+        if (isset($stateDisplay) && 1 === $stateDisplay) {
             $arr = [];
             $styles = preg_replace('/"/', '', strip_tags($this->params->get('css')));
 
@@ -109,9 +109,9 @@ class plgSystemQldebug extends JPlugin
             foreach ($this->arrQldebug as $k => $v) {
                 if
                 (
-                    (1 != $this->params->get($v) and 'server' != $v)
-                    or
-                    ('server' == $v and 0 >= count($this->params->get($v)))
+                    (1 != $this->params->get($v) && 'server' !== $v)
+                    ||
+                    ('server' === $v && is_array($this->params->get($v)) && 0 >= count($this->params->get($v)))
                 ) {
                     unset($this->arrQldebug[$k]);
                     continue;
@@ -123,7 +123,7 @@ class plgSystemQldebug extends JPlugin
                 $data->$var_name = $this->{$var_name} = $obj_helper->$fn();
             }
             if (1 == $this->params->get('databasestorage', 0)) $obj_helper->storeInDatabase($data);
-            if (1 == $this->params->get('output', 1) or 2 == $this->params->get('output', 1)) {
+            if (1 == $this->params->get('output', 1) || 2 == $this->params->get('output', 1)) {
                 $document = JFactory::getDocument();
                 $document->addStyleSheet(JURI::base() . 'plugins/system/' . $this->get('_name') . '/css/qldebug.css');
                 $document->addStyleDeclaration('.qldebugPlugin{' . $this->params->get('css') . '}');

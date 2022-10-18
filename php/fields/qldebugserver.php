@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        plg_system_qldebug
- * @copyright    Copyright (C) 2017 ql.de All rights reserved.
+ * @copyright    Copyright (C) 2022 ql.de All rights reserved.
  * @author        Mareike Riegel mareike.riegel@ql.de
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -27,15 +27,15 @@ class JFormFieldQldebugserver extends JFormField
      * @return array The field option objects.
      * @since 1.6
      */
-    protected function getInput()
+    protected function getInput(): string
     {
         if (!isset($_SERVER)) return JText::_('PLG_SYSTEM_QLDEBUG_MSG_GLOBALNOSERVERVARIABLEFOUND');
         $params = $this->getParamsOfExtension();
         $server = $params->get('server');
-        if (!is_array($server)) $server = array();
-        $html = array();
+        if (!is_array($server)) $server = [];
+        $html = [];
         $html[] = '<select name="jform[params][server][]" id="jform_params_server" multiple="multiple">';
-        while (list($k, $v) = each($_SERVER)) {
+        foreach ($_SERVER as $k => $v) {
             $html[] = '<option value="' . $k . '"';
             if (in_array($k, $server)) $html[] = 'selected="selected" ';
             $html[] = '>';
@@ -48,7 +48,7 @@ class JFormFieldQldebugserver extends JFormField
 
     protected function getParamsOfExtension()
     {
-        if (!isset($_GET['extension_id']) or 0 == $_GET['extension_id']) return array();
+        if (!isset($_GET['extension_id']) || 0 == $_GET['extension_id']) return [];
         $extensionId = $_GET['extension_id'];
         return $this->askDb('params', '#__extensions', '`extension_id`=\'' . $extensionId . '\'');
     }

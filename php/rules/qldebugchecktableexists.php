@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        plg_system_qldebug
- * @copyright    Copyright (C) 2017 ql.de All rights reserved.
+ * @copyright    Copyright (C) 2022 ql.de All rights reserved.
  * @author        Mareike Riegel mareike.riegel@ql.de
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -43,12 +43,12 @@ class JFormRuleQldebugchecktableexists extends JFormRule
      */
     public function test(SimpleXMLElement $element, $value, $group = null, JRegistry $input = null, JForm $form = null)
     {
-        if ('' == $value or 0 == $value) return true;
+        if ('' == $value || 0 == $value) return true;
         require_once JPATH_SITE . '/plugins/system/qldebug/php/classes/plgSystemQldebugHelper.php';
         $this->obj_helper = new plgSystemQldebugHelper(new stdClass());
         $tableName = $this->obj_helper->tableStorage;
         try {
-            $msgError = array();
+            $msgError = [];
             if (1 != $this->tableExists($this->getDatabaseName(), $this->getTableName($tableName))) throw new Exception(sprintf(JText::_('PLG_SYSTEM_QLDEBUG_MSG_TABLENONEXISTENT'), $tableName, $tableName));
         } catch (Exception $e) {
             JFactory::getApplication()->enqueueMessage($e->getMessage(), 'error');
@@ -86,7 +86,7 @@ class JFormRuleQldebugchecktableexists extends JFormRule
         $db->setQuery('SHOW TABLES FROM `' . $database . '`');
         $db->query();
         foreach ($db->loadObjectList() as $k => $v) foreach ($v as $v2) $arr[$k] = $v2;
-        if (is_array($arr) and in_array($table, $arr)) return true;
+        if (is_array($arr) && in_array($table, $arr)) return true;
         else return false;
     }
 
@@ -153,7 +153,7 @@ class JFormRuleQldebugchecktableexists extends JFormRule
     private function objectToArrayOrTheOtherWay($input)
     {
         if (is_object($input)) {
-            $output = array();
+            $output = [];
             foreach ($input as $k => $v) $output[$k] = $v;
         }
         if (is_array($input)) {

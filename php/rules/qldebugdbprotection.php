@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        plg_system_qldebug
- * @copyright    Copyright (C) 2017 ql.de All rights reserved.
+ * @copyright    Copyright (C) 2022 ql.de All rights reserved.
  * @author        Mareike Riegel mareike.riegel@ql.de
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -45,7 +45,7 @@ class JFormRuleQldebugdbprotection extends JFormRule
     {
         if ('' == trim($value)) return true;
         try {
-            $msgError = array();
+            $msgError = [];
             $arr = array('drop', 'set', 'update', 'delete',);
             foreach ($arr as $v) if (preg_match('/' . $v . '/i', $value)) $msgError[] = sprintf(JText::_('PLG_SYSTEM_QLDEBUG_MSG_DBPROTECTIONINVALIDCOMMAND'), $v);
             if (!preg_match('/select/i', $value)) $msgError[] = JText::_('PLG_SYSTEM_QLDEBUG_MSG_DBPROTECTIONNOSELECT');

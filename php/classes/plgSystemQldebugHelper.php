@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        plg_system_qldebug
- * @copyright    Copyright (C) 2017 ql.de All rights reserved.
+ * @copyright    Copyright (C) 2022 ql.de All rights reserved.
  * @author        Mareike Riegel mareike.riegel@ql.de
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -12,14 +12,14 @@ defined('_JEXEC') or die;
 class plgSystemQldebugHelper
 {
 
-    public $params;
-    public $plgname = 'qldebug';
-    public $tableStorage = '#__qldebug_storage';
+    public ?Joomla\Registry\Registry $params;
+    public string $plgname = 'qldebug';
+    public string $tableStorage = '#__qldebug_storage';
 
     function __construct($params)
     {
         require_once dirname(__FILE__) . '/plgSystemQldebugDatabase.php';
-        $this->params = $params;
+        $this->params = ('Joomla\Registry\Registry' === get_class($params)) ? $params : null;
         $this->obj_db = new plgSystemQldebugDatabase();
     }
 
@@ -33,7 +33,7 @@ class plgSystemQldebugHelper
 
     static function checkIfUserIsSuperuser($user_id, $user_group_id = '8')
     {
-        if (false == $user_id) return false;
+        if (!$user_id) return false;
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('group_id');
@@ -41,7 +41,7 @@ class plgSystemQldebugHelper
         $query->where('`user_id`=\'' . $user_id . '\'');
         $db->setQuery($query);
         $user_data = $db->loadObject();
-        if (isset($user_data) and is_object($user_data) and isset($user_data->group_id) and $user_group_id == $user_data->group_id) return true;
+        if (isset($user_data) && is_object($user_data) && isset($user_data->group_id) && $user_group_id == $user_data->group_id) return true;
         else return false;
     }
 
@@ -75,11 +75,10 @@ class plgSystemQldebugHelper
      */
     public function get_server()
     {
-        $server = array();
+        $server = [];
         $servParam = $this->params->get('server');
-        if (is_array($servParam) and 0 < count($servParam)) foreach ($servParam as $k => $v) $server[$v] = $_SERVER[$v];
+        if (is_array($servParam) && 0 < count($servParam)) foreach ($servParam as $k => $v) $server[$v] = $_SERVER[$v];
         return $server;
-        //return $_SERVER;
     }
 
     public function get_session()
@@ -147,7 +146,7 @@ class plgSystemQldebugHelper
         $table = $this->params->get('tablename');
         if (true != $this->checkIfTableExists($table)) return false;
         /*generate array with table info (columns and data)*/
-        $arr_table_columns = array();
+        $arr_table_columns = [];
         if (1 == $this->params->get('tablecolumns')) $arr_table_columns['columns'] = $this->obj_db->getDatabaseFields($this->database, $table);
         if (1 == $this->params->get('tabledata')) $arr_table_columns['data'] = $this->obj_db->getTableData($table, '*', trim($this->params->get('tablequery')));
         return $arr_table_columns;
@@ -161,7 +160,7 @@ class plgSystemQldebugHelper
     public function checkIfTableExists($table)
     {
         $this->database = $this->obj_db->getDatabaseName();
-        if (true != $this->obj_db->tableExists($this->database, $table)) return false;
+        if (!$this->obj_db->tableExists($this->database, $table)) return false;
         return true;
     }
 
@@ -242,7 +241,7 @@ class plgSystemQldebugHelper
         /*forbidden because of recursion, to be solved some day ... my prince will come*/
         $arrForbidden = array('japplication', 'Xjuser', 'session', 'globals');
         foreach ($data as $k => $v) {
-            if ((is_array($v) or is_object($v)) and in_array($k, $arrForbidden)) unset($data->$k);
+            if ((is_array($v) || is_object($v)) && in_array($k, $arrForbidden)) unset($data->$k);
         }
         return $data;
     }

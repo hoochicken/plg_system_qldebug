@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        plg_system_qldebug
- * @copyright    Copyright (C) 2017 ql.de All rights reserved.
+ * @copyright    Copyright (C) 2022 ql.de All rights reserved.
  * @author        Mareike Riegel mareike.riegel@ql.de
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -17,7 +17,7 @@ class plgSystemQldebugDatabase
      * @param string $database database name
      * @param string $table Name of table to save data in
      *
-     * @return  bool true on success, false on failure
+     * @return  JDatabaseDriver true on success, false on failure
      *
      */
     function getDatabase()
@@ -38,7 +38,6 @@ class plgSystemQldebugDatabase
     {
         $db = $this->getDatabase();
         $db->setQuery('SHOW COLUMNS FROM `' . $table . '` FROM `' . $database . '` ');
-        $db->query();
         return $db->loadObjectList();
     }
 
@@ -56,9 +55,8 @@ class plgSystemQldebugDatabase
         $db = $this->getDatabase();
         $query = 'SHOW TABLES FROM `' . $database . '`';
         $db->setQuery($query);
-        $db->query();
         foreach ($db->loadObjectList() as $k => $v) foreach ($v as $v2) $arr[$k] = $v2;
-        if (is_array($arr) and in_array($this->getTableName($table), $arr)) return true;
+        if (is_array($arr) && in_array($this->getTableName($table), $arr)) return true;
         else return false;
     }
 
@@ -134,7 +132,7 @@ class plgSystemQldebugDatabase
         if (0 == $this->tableExists($this->getDatabaseName(), $table)) return false;
         $obj_data = new stdClass();
         foreach ($data as $k => $v) {
-            if (is_array($v) or is_object($v)) $obj_data->$k = @json_encode($v);
+            if (is_array($v) || is_object($v)) $obj_data->$k = @json_encode($v);
             else $obj_data->$k = $v;
         }
         $db->insertObject($table, $obj_data);
@@ -196,7 +194,7 @@ class plgSystemQldebugDatabase
      * @param array $stack
      * @return string
      */
-    public static function remove_recursion(&$object, &$stack = array())
+    public static function remove_recursion(&$object, &$stack = [])
     {
         if ((is_object($object) || is_array($object)) && $object) {
             if (!in_array($object, $stack, true)) {

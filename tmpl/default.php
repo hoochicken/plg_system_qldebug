@@ -1,7 +1,7 @@
 <?php
 /**
  * @package        plg_system_qldebug
- * @copyright    Copyright (C) 2017 ql.de All rights reserved.
+ * @copyright    Copyright (C) 2022 ql.de All rights reserved.
  * @author        Mareike Riegel mareike.riegel@ql.de
  * @license        GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -32,4 +32,4 @@ defined('_JEXEC') or die;
             ?>
         </div>
     </div>
-<?php if (1 == $params->get('exit') and 'admin' != JFactory::getApplication()->isAdmin()) exit; ?>
+<?php if (1 == $params->get('exit') && 'admin' != JFactory::getApplication()->isAdmin()) exit; ?>
