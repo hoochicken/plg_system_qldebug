@@ -47,17 +47,13 @@ class plgSystemQldebug extends JPlugin
         /*HERE create new registry object*/
         //echo '<pre>';print_r($this->params);die;
         $app = JFactory::getApplication();
-        if ($app->isAdmin()) $area = 'admin';
-        if ($app->isSite()) $area = 'site';
         $display = false;
-        //echo '<pre>';print_R('ASDASD');die;
-
-        if (1 == $this->params->get('stateSite', 0) && 'site' == $area) $display = true;
-        if (1 == $this->params->get('stateAdmin', 0) && 'admin' == $area) $display = true;
+        if (1 == $this->params->get('stateSite', 0) && $app->isClient('site')) $display = true;
+        if (1 == $this->params->get('stateAdmin', 0) && $app->isClient('administrator')) $display = true;
         if (1 == isset($_GET['qldebug'])) $display = true;
 
         /*when to be NOT displayed, then return without any further action*/
-        if (0 == $this->params->get('stateAccess', 0) || false == $display) return;
+        if (0 == $this->params->get('stateAccess', 0) || !$display) return;
 
         /*initiate helper*/
         require_once JPATH_ROOT . '/plugins/system/qldebug/php/classes/plgSystemQldebugHelper.php';

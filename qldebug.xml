@@ -6,11 +6,11 @@
     <copyright>Copyright (C) 2022 ql.de All rights reserved.</copyright>
     <authorEmail>mareike.riegel@ql.de</authorEmail>
     <authorUrl>http://ql.de/</authorUrl>
-    <version>2.0.3</version>
+    <version>2.1.0</version>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <description>PLG_SYSTEM_QLDEBUG_DESCRIPTION</description>
 	<updateservers>
-        <server type="extension" priority="1" name="qldebug - Updates"><![CDATA[https://www.blackforest-software.com/_scripts/updates/plg_system_qldebug.xml]]></server>
+        <server type="extension" priority="1" name="qldebug - Updates">https://raw.githubusercontent.com/hoochicken/plg_system_qldebug/master/_jupdate/plg_system_qldebug.xml</server>
     </updateservers>
     <files>
         <filename plugin="qldebug">qldebug.php</filename>
@@ -21,6 +21,7 @@
         <folder plugin="qldebug">language</folder>
         <folder plugin="qldebug">php</folder>
         <folder plugin="qldebug">sql</folder>
+        <folder plugin="qldebug">_jupdate</folder>
     </files>
     <languages>
         <language tag="en-GB">language/en-GB/en-GB.plg_system_qldebug.ini</language>
