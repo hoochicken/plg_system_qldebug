@@ -30,9 +30,9 @@ class plgSystemQldebug extends JPlugin
 
     /**
      * method to set module params as valid params for plugin
-     * @param $params
+     * @param Joomla\Registry\Registry $params
      */
-    public function forceParams($params)
+    public function forceParams(Joomla\Registry\Registry$params)
     {
         //echo '<pre>';print_r($this->params);
         $params->set('getHtml', 'module');
@@ -64,7 +64,7 @@ class plgSystemQldebug extends JPlugin
         $obj_helper = new plgSystemQldebugHelper($this->params);
 
         $user = JFactory::getUser();
-        $arrayIntersect = @array_intersect($user->get('_authGroups'), $user->get('groups'));
+        $arrayIntersect = @array_intersect($user->getAuthorisedGroups(), $user->get('groups'));
 
         $user_id = plgSystemQldebugHelper::checkIfUserLoggedIn();
         switch ($this->params->get('stateAccess')) {
@@ -74,11 +74,11 @@ class plgSystemQldebug extends JPlugin
                 break;
             /*only logged-in Super Users*/
             case 1 :
-                if (false == $user_id) {
+                if (!$user_id) {
                     $stateDisplay = 0;
                     break;
                 }
-                if (0 < $user_id && true == plgSystemQldebugHelper::checkIfUserIsSuperuser($user_id, $this->params->get('usergroup', 8))) $stateDisplay = 1;
+                if (0 < $user_id && plgSystemQldebugHelper::checkIfUserIsSuperuser($user_id, $this->params->get('usergroup', 8))) $stateDisplay = 1;
                 break;
             /*only logged-in users*/
             case 2 :
@@ -86,7 +86,7 @@ class plgSystemQldebug extends JPlugin
                 break;
             /*only when user is not logged in*/
             case 3 :
-                if (false == $user_id) $stateDisplay = 0;
+                if (!$user_id) $stateDisplay = 0;
                 break;
             /*always*/
             case 4 :
@@ -101,7 +101,7 @@ class plgSystemQldebug extends JPlugin
         }
 
         if (isset($_GET['qldebug'])) $stateDisplay = 1;
-        if (isset($stateDisplay) && 1 == $stateDisplay) {
+        if (isset($stateDisplay) && 1 === $stateDisplay) {
             $arr = [];
             $styles = preg_replace('/"/', '', strip_tags($this->params->get('css')));
 
@@ -109,9 +109,9 @@ class plgSystemQldebug extends JPlugin
             foreach ($this->arrQldebug as $k => $v) {
                 if
                 (
-                    (1 != $this->params->get($v) && 'server' != $v)
+                    (1 != $this->params->get($v) && 'server' !== $v)
                     ||
-                    ('server' == $v && 0 >= count($this->params->get($v)))
+                    ('server' === $v && is_array($this->params->get($v)) && 0 >= count($this->params->get($v)))
                 ) {
                     unset($this->arrQldebug[$k]);
                     continue;

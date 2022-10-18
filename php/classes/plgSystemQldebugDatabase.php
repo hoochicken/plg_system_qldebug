@@ -17,7 +17,7 @@ class plgSystemQldebugDatabase
      * @param string $database database name
      * @param string $table Name of table to save data in
      *
-     * @return  bool true on success, false on failure
+     * @return  JDatabaseDriver true on success, false on failure
      *
      */
     function getDatabase()
@@ -38,7 +38,6 @@ class plgSystemQldebugDatabase
     {
         $db = $this->getDatabase();
         $db->setQuery('SHOW COLUMNS FROM `' . $table . '` FROM `' . $database . '` ');
-        $db->query();
         return $db->loadObjectList();
     }
 
@@ -56,7 +55,6 @@ class plgSystemQldebugDatabase
         $db = $this->getDatabase();
         $query = 'SHOW TABLES FROM `' . $database . '`';
         $db->setQuery($query);
-        $db->query();
         foreach ($db->loadObjectList() as $k => $v) foreach ($v as $v2) $arr[$k] = $v2;
         if (is_array($arr) && in_array($this->getTableName($table), $arr)) return true;
         else return false;

@@ -12,14 +12,14 @@ defined('_JEXEC') or die;
 class plgSystemQldebugHelper
 {
 
-    public $params;
-    public $plgname = 'qldebug';
-    public $tableStorage = '#__qldebug_storage';
+    public ?Joomla\Registry\Registry $params;
+    public string $plgname = 'qldebug';
+    public string $tableStorage = '#__qldebug_storage';
 
     function __construct($params)
     {
         require_once dirname(__FILE__) . '/plgSystemQldebugDatabase.php';
-        $this->params = $params;
+        $this->params = ('Joomla\Registry\Registry' === get_class($params)) ? $params : null;
         $this->obj_db = new plgSystemQldebugDatabase();
     }
 
@@ -33,7 +33,7 @@ class plgSystemQldebugHelper
 
     static function checkIfUserIsSuperuser($user_id, $user_group_id = '8')
     {
-        if (false == $user_id) return false;
+        if (!$user_id) return false;
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $query->select('group_id');
@@ -79,7 +79,6 @@ class plgSystemQldebugHelper
         $servParam = $this->params->get('server');
         if (is_array($servParam) && 0 < count($servParam)) foreach ($servParam as $k => $v) $server[$v] = $_SERVER[$v];
         return $server;
-        //return $_SERVER;
     }
 
     public function get_session()
@@ -161,7 +160,7 @@ class plgSystemQldebugHelper
     public function checkIfTableExists($table)
     {
         $this->database = $this->obj_db->getDatabaseName();
-        if (true != $this->obj_db->tableExists($this->database, $table)) return false;
+        if (!$this->obj_db->tableExists($this->database, $table)) return false;
         return true;
     }
 
