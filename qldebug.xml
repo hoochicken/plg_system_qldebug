@@ -15,13 +15,13 @@
     <files>
         <filename plugin="qldebug">qldebug.php</filename>
         <filename plugin="qldebug">index.html</filename>
-        <folder plugin="qldebug">css</folder>
-        <folder plugin="qldebug">tmpl</folder>
-        <folder plugin="qldebug">javascript</folder>
-        <folder plugin="qldebug">language</folder>
-        <folder plugin="qldebug">php</folder>
-        <folder plugin="qldebug">sql</folder>
-        <folder plugin="qldebug">_jupdate</folder>
+        <folder>css</folder>
+        <folder>tmpl</folder>
+        <folder>javascript</folder>
+        <folder>language</folder>
+        <folder>php</folder>
+        <folder>sql</folder>
+        <folder>_jupdate</folder>
     </files>
     <languages>
         <language tag="en-GB">language/en-GB/en-GB.plg_system_qldebug.ini</language>
