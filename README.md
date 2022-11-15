@@ -4,6 +4,13 @@ qldebug is especially for devs working on a website trying to fix it.
 
 Sometimes there is no ftp access, so it is hard to see, what objects are used, what is written in them, if post or session data are existing.
 
+## What about a coffee ..
+
+I love coding. My extensions are for free. Wanna say thanks? You're welcome! 
+<https://www.buymeacoffee.com/mareikeRiegel>
+
+## Data available
+
 That is when qldebug helps by offering to display following data:
 
 * $_POST
